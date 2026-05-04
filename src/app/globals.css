@@ -93,7 +93,7 @@ html {
   box-shadow: var(--shadow-elev);
   overflow: hidden;
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto;
   backdrop-filter: blur(18px);
   position: relative;
 }
@@ -233,6 +233,20 @@ html {
   min-height: 0;
 }
 
+.ideCenterStack {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ideTerminalStack {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .ideExplorer,
 .ideAssistant {
   min-height: 0;
@@ -250,6 +264,7 @@ html {
 }
 
 .ideEditor {
+  flex: 1 1 0;
   min-height: 0;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -705,21 +720,59 @@ html {
   padding: 3px 8px;
 }
 
-.ideTerminalWrap {
+.ideTerminalHandleRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 2px 6px 3px;
   border-top: 1px solid var(--ide-border);
+  background: rgba(2, 6, 23, 0.42);
+}
+
+.ideTerminalWrap {
   background: rgba(2, 6, 23, 0.4);
+  height: 0;
   max-height: 0;
+  min-height: 0;
   overflow: hidden;
-  transition: max-height 220ms ease;
+  transition: height 260ms ease, max-height 260ms ease;
+  display: flex;
+  flex-direction: column;
 }
 .ideTerminalWrap.open {
-  max-height: 260px;
+  height: min(220px, 30vh);
+  max-height: min(220px, 30vh);
+  flex-shrink: 0;
+}
+
+.ideTerminalHandleBtn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ide-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  border-radius: 6px;
+}
+
+.ideTerminalHandleBtn:hover {
+  background: rgba(148, 163, 184, 0.12);
+  color: var(--ide-text);
+}
+
+.ideTerminalHandleIcon {
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  opacity: 0.95;
 }
 
 .terminalRoot {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  min-height: 240px;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 .terminalHeader {
   display: flex;
@@ -728,8 +781,11 @@ html {
   gap: 10px;
   padding: 10px 12px;
   border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+  flex-shrink: 0;
 }
 .terminalBody {
+  flex: 1 1 auto;
+  min-height: 0;
   padding: 10px 12px;
   overflow: auto;
   font-size: 12px;
@@ -749,6 +805,8 @@ html {
   align-items: center;
   padding: 10px 12px 12px 12px;
   border-top: 1px solid rgba(148, 163, 184, 0.12);
+  flex-shrink: 0;
+  background: rgba(2, 6, 23, 0.45);
 }
 .termPrompt {
   color: rgba(34, 211, 238, 0.85);

@@ -24,7 +24,7 @@ function fileFor(id: string) {
 
 export function IdeFrame() {
   const [activeFileId, setActiveFileId] = useState<string>(defaultActiveFileId);
-  const [terminalOpen, setTerminalOpen] = useState<boolean>(false);
+  const [terminalOpen, setTerminalOpen] = useState<boolean>(true);
   const [mobileExplorerOpen, setMobileExplorerOpen] = useState<boolean>(false);
   const [mobileAssistantOpen, setMobileAssistantOpen] = useState<boolean>(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -34,6 +34,11 @@ export function IdeFrame() {
   }, [theme]);
 
   const openTabs = useMemo(() => editorTabFileIds, []);
+
+  const openablePages = useMemo(
+    () => editorTabFileIds.map((id) => ({ id, path: fileFor(id).path })),
+    [],
+  );
 
   const activeFile = useMemo(() => fileFor(activeFileId), [activeFileId]);
 
@@ -75,15 +80,6 @@ export function IdeFrame() {
           <aside className="ideExplorer" aria-label="File explorer">
             <div className="paneHeader">
               <span className="paneTitle">EXPLORER</span>
-              <button
-                className="paneIconBtn"
-                type="button"
-                onClick={() => setTerminalOpen((v) => !v)}
-                aria-pressed={terminalOpen}
-                aria-label={terminalOpen ? "Collapse terminal" : "Expand terminal"}
-              >
-                ⌃
-              </button>
             </div>
             <FileTree
               nodes={siteTree}
@@ -92,46 +88,71 @@ export function IdeFrame() {
             />
           </aside>
 
-          <section className="ideEditor" aria-label="Editor">
-            <div className="ideEditorTabRow">
-              <TabStrip
-                tabs={openTabs.map((id) => fileFor(id))}
-                activeId={activeFileId}
-                onSelect={(id) => setActiveFileId(id)}
-              />
-            </div>
-            <div className="ideEditorBody">
-              <div className="paneHeader">
-                <div className="editorHeaderLeft">
-                  <button
-                    className="mobileBarBtn"
-                    type="button"
-                    onClick={() => {
-                      setMobileExplorerOpen(true);
-                      setMobileAssistantOpen(false);
-                    }}
-                  >
-                    Files
-                  </button>
-                  <button
-                    className="mobileBarBtn"
-                    type="button"
-                    onClick={() => {
-                      setMobileAssistantOpen(true);
-                      setMobileExplorerOpen(false);
-                    }}
-                  >
-                    Chat
-                  </button>
-                  <span className="paneTitle">{activeFile.path}</span>
-                </div>
-                <span className="paneMeta">
-                  {activeFile.language.toUpperCase()} · UTF-8 · LF
-                </span>
+          <div className="ideCenterStack">
+            <section className="ideEditor" aria-label="Editor">
+              <div className="ideEditorTabRow">
+                <TabStrip
+                  tabs={openTabs.map((id) => fileFor(id))}
+                  activeId={activeFileId}
+                  onSelect={(id) => setActiveFileId(id)}
+                />
               </div>
-              <EditorPane file={activeFile} />
+              <div className="ideEditorBody">
+                <div className="paneHeader">
+                  <div className="editorHeaderLeft">
+                    <button
+                      className="mobileBarBtn"
+                      type="button"
+                      onClick={() => {
+                        setMobileExplorerOpen(true);
+                        setMobileAssistantOpen(false);
+                      }}
+                    >
+                      Files
+                    </button>
+                    <button
+                      className="mobileBarBtn"
+                      type="button"
+                      onClick={() => {
+                        setMobileAssistantOpen(true);
+                        setMobileExplorerOpen(false);
+                      }}
+                    >
+                      Chat
+                    </button>
+                    <span className="paneTitle">{activeFile.path}</span>
+                  </div>
+                  <span className="paneMeta">
+                    {activeFile.language.toUpperCase()} · UTF-8 · LF
+                  </span>
+                </div>
+                <EditorPane file={activeFile} />
+              </div>
+            </section>
+
+            <div className="ideTerminalStack">
+              <div className="ideTerminalHandleRow">
+                <button
+                  type="button"
+                  className="ideTerminalHandleBtn"
+                  onClick={() => setTerminalOpen((v) => !v)}
+                  aria-expanded={terminalOpen}
+                  aria-label={terminalOpen ? "Hide terminal" : "Show terminal"}
+                >
+                  <span className="ideTerminalHandleIcon" aria-hidden="true">
+                    {terminalOpen ? "▼" : "▲"}
+                  </span>
+                </button>
+              </div>
+              <div className={`ideTerminalWrap ${terminalOpen ? "open" : ""}`}>
+                <Terminal
+                  bootLines={terminalBoot}
+                  openablePages={openablePages}
+                  onOpenPage={(id) => setActiveFileId(id)}
+                />
+              </div>
             </div>
-          </section>
+          </div>
 
           <aside className="ideAssistant" aria-label="AI assistant">
             <div className="paneHeader">
@@ -204,17 +225,6 @@ export function IdeFrame() {
               }}
             />
           </div>
-        </div>
-
-        <div className={`ideTerminalWrap ${terminalOpen ? "open" : ""}`}>
-          <Terminal
-            bootLines={terminalBoot}
-            onCommand={(cmd) => {
-              if (cmd === "open publications") setActiveFileId("publications");
-              if (cmd === "open research") setActiveFileId("research");
-              if (cmd === "open contact") setActiveFileId("contact");
-            }}
-          />
         </div>
 
         <StatusBar />

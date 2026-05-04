@@ -183,9 +183,9 @@ export const assistantPrompts: AssistantPromptChip[] = [
 ];
 
 export const terminalBoot = [
-  "researcher-site@dev  ▸  npm run dev",
+  "site@dev  ▸  npm run dev",
   "ready - started server on 0.0.0.0:3000",
   "",
-  "try: help · open publications · open research · open contact",
+  "try: help · ls · open <page>",
 ];
 
