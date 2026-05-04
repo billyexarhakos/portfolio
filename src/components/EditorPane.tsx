@@ -15,6 +15,7 @@ type Publication = {
   title?: string;
   venue?: string;
   year?: number;
+  authors?: string[];
   links?: Record<string, string>;
 };
 
@@ -89,11 +90,27 @@ function renderPublicationJson(content: string) {
                 </div>
                 <h3 className="pubTitle">{pub.title ?? "Untitled publication"}</h3>
                 <p className="pubVenue">{pub.venue ?? "Venue pending"}</p>
+                {pub.authors && pub.authors.length > 0 ? (
+                  <p className="pubAuthors">{pub.authors.join(" · ")}</p>
+                ) : null}
                 <div className="pubLinks">
                   {Object.entries(pub.links ?? {}).map(([key, value]) => (
-                    <span key={key} className={`pubLink ${value ? "active" : "muted"}`}>
-                      {key}
-                    </span>
+                    value ? (
+                      <a
+                        key={key}
+                        className="pubLink active"
+                        href={value}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Open ${key} link`}
+                      >
+                        {key}
+                      </a>
+                    ) : (
+                      <span key={key} className="pubLink muted">
+                        {key}
+                      </span>
+                    )
                   ))}
                 </div>
               </article>
