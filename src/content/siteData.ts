@@ -7,7 +7,7 @@ export const siteTree: TreeNode[] = [
   {
     type: "folder",
     id: "root",
-    name: "researcher-site",
+    name: "src",
     children: [
       { type: "file", id: "about", name: "about.md" },
       { type: "file", id: "research", name: "research.md" },

@@ -168,9 +168,28 @@ html {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(120px, max-content);
-  overflow: auto hidden;
-  border-top: 1px solid rgba(148, 163, 184, 0.1);
+  overflow-x: auto;
+  overflow-y: hidden;
   background: rgba(2, 6, 23, 0.4);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+
+.tabStrip::-webkit-scrollbar {
+  height: 5px;
+}
+
+.tabStrip::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tabStrip::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.38);
+  border-radius: 999px;
+}
+
+.tabStrip::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.55);
 }
 
 .tab {
@@ -215,15 +234,10 @@ html {
 }
 
 .ideExplorer,
-.ideAssistant,
-.ideEditor {
+.ideAssistant {
   min-height: 0;
   display: grid;
   grid-template-rows: auto 1fr;
-}
-
-.ideExplorer,
-.ideAssistant {
   background: rgba(2, 6, 23, 0.35);
 }
 
@@ -236,7 +250,23 @@ html {
 }
 
 .ideEditor {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
   background: rgba(2, 6, 23, 0.22);
+}
+
+.ideEditorTabRow {
+  min-width: 0;
+  border-bottom: 1px solid var(--ide-border);
+  background: rgba(2, 6, 23, 0.35);
+}
+
+.ideEditorBody {
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
 }
 
 .paneHeader {

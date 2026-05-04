@@ -69,11 +69,6 @@ export function IdeFrame() {
               </button>
             </div>
           </div>
-          <TabStrip
-            tabs={openTabs.map((id) => fileFor(id))}
-            activeId={activeFileId}
-            onSelect={(id) => setActiveFileId(id)}
-          />
         </div>
 
         <div className="ideMain">
@@ -98,35 +93,44 @@ export function IdeFrame() {
           </aside>
 
           <section className="ideEditor" aria-label="Editor">
-            <div className="paneHeader">
-              <div className="editorHeaderLeft">
-                <button
-                  className="mobileBarBtn"
-                  type="button"
-                  onClick={() => {
-                    setMobileExplorerOpen(true);
-                    setMobileAssistantOpen(false);
-                  }}
-                >
-                  Files
-                </button>
-                <button
-                  className="mobileBarBtn"
-                  type="button"
-                  onClick={() => {
-                    setMobileAssistantOpen(true);
-                    setMobileExplorerOpen(false);
-                  }}
-                >
-                  Chat
-                </button>
-                <span className="paneTitle">{activeFile.path}</span>
-              </div>
-              <span className="paneMeta">
-                {activeFile.language.toUpperCase()} · UTF-8 · LF
-              </span>
+            <div className="ideEditorTabRow">
+              <TabStrip
+                tabs={openTabs.map((id) => fileFor(id))}
+                activeId={activeFileId}
+                onSelect={(id) => setActiveFileId(id)}
+              />
             </div>
-            <EditorPane file={activeFile} />
+            <div className="ideEditorBody">
+              <div className="paneHeader">
+                <div className="editorHeaderLeft">
+                  <button
+                    className="mobileBarBtn"
+                    type="button"
+                    onClick={() => {
+                      setMobileExplorerOpen(true);
+                      setMobileAssistantOpen(false);
+                    }}
+                  >
+                    Files
+                  </button>
+                  <button
+                    className="mobileBarBtn"
+                    type="button"
+                    onClick={() => {
+                      setMobileAssistantOpen(true);
+                      setMobileExplorerOpen(false);
+                    }}
+                  >
+                    Chat
+                  </button>
+                  <span className="paneTitle">{activeFile.path}</span>
+                </div>
+                <span className="paneMeta">
+                  {activeFile.language.toUpperCase()} · UTF-8 · LF
+                </span>
+              </div>
+              <EditorPane file={activeFile} />
+            </div>
           </section>
 
           <aside className="ideAssistant" aria-label="AI assistant">
