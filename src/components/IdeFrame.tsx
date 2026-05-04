@@ -8,6 +8,7 @@ import { StatusBar } from "@/components/StatusBar";
 import { TabStrip } from "@/components/TabStrip";
 import { Terminal } from "@/components/Terminal";
 import { assistantMessages, assistantPrompts, defaultActiveFileId, filesById, siteTree, terminalBoot } from "@/content/siteData";
+import { useChipChatStream } from "@/hooks/useChipChatStream";
 
 function fileFor(id: string) {
   return filesById[id] ?? filesById[defaultActiveFileId];
@@ -31,6 +32,12 @@ export function IdeFrame() {
   }, [activeFileId]);
 
   const activeFile = useMemo(() => fileFor(activeFileId), [activeFileId]);
+
+  const chipChat = useChipChatStream({
+    initialMessages: assistantMessages,
+    prompts: assistantPrompts,
+    onOpenFile: setActiveFileId,
+  });
 
   return (
     <div className="ideRoot">
@@ -124,12 +131,10 @@ export function IdeFrame() {
               <span className="paneMeta">local · themed</span>
             </div>
             <AssistantChat
-              messages={assistantMessages}
+              messages={chipChat.messages}
+              isStreaming={chipChat.isStreaming}
               prompts={assistantPrompts}
-              onPrompt={(promptId) => {
-                const p = assistantPrompts.find((x) => x.id === promptId);
-                if (p?.openFileId) setActiveFileId(p.openFileId);
-              }}
+              onChipClick={chipChat.onChipClick}
             />
           </aside>
         </div>
@@ -182,11 +187,11 @@ export function IdeFrame() {
               </button>
             </div>
             <AssistantChat
-              messages={assistantMessages}
+              messages={chipChat.messages}
+              isStreaming={chipChat.isStreaming}
               prompts={assistantPrompts}
-              onPrompt={(promptId) => {
-                const p = assistantPrompts.find((x) => x.id === promptId);
-                if (p?.openFileId) setActiveFileId(p.openFileId);
+              onChipClick={(id) => {
+                chipChat.onChipClick(id);
                 setMobileAssistantOpen(false);
               }}
             />

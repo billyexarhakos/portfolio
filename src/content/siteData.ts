@@ -102,7 +102,6 @@ export const filesById: Record<string, EditorFile> = {
       '  linkedin: "https://www.linkedin.com/in/vassilios-exarhakos-593913233/",',
       "};",
     ].join("\n"),
-    
   },
   teaching: {
     id: "teaching",
@@ -170,25 +169,49 @@ export const assistantMessages = [
   {
     role: "assistant" as const,
     content:
-      "Hi — I’m the (themed) in-IDE assistant for this site. Click a file to explore, or use a prompt below.",
+      "Hi! I'm Vassilios (Billy) Exarhakos, a computer science researcher at McGill University. My work focuses on human–computer interaction for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chips below to ask about research, publications, or contact.",
   },
+  { role: "user" as const, content: "What are you focused on in your day-to-day research?" },
   {
     role: "assistant" as const,
     content:
-      "This is placeholder content for a CS PhD researcher. Replace TODOs in `src/content/siteData.ts`.",
-  },
-  { role: "user" as const, content: "What are you working on right now?" },
-  {
-    role: "assistant" as const,
-    content:
-      "Right now: making this website feel like an editor + assistant. Next: swapping placeholders for your real bio + publications.",
+      "I spend most of my time on AI-assisted programming, interaction versioning for prompts and code, and the design of tools that improve transparency and control when developers work with large language models. I also serve as a course assistant for COMP 303 (Software Design).",
   },
 ];
 
-export const assistantPrompts = [
-  { id: "show_research" as const, label: "Show research", openFileId: "research" },
-  { id: "show_publications" as const, label: "Show publications", openFileId: "publications" },
-  { id: "show_contact" as const, label: "Show contact", openFileId: "contact" },
+export type AssistantPromptChip = {
+  id: string;
+  label: string;
+  openFileId: string;
+  userPrompt: string;
+  assistantReply: string;
+};
+
+export const assistantPrompts: AssistantPromptChip[] = [
+  {
+    id: "show_research",
+    label: "Show research",
+    openFileId: "research",
+    userPrompt: "What research themes are you pursuing?",
+    assistantReply:
+      "My research is organized around three themes: AI-assisted programming and developer workflows with large language models; interaction versioning, or tracking and revisiting the joint evolution of prompts and code; and developer cognition, including tools that support exploration and structured reasoning.",
+  },
+  {
+    id: "show_publications",
+    label: "Show publications",
+    openFileId: "publications",
+    userPrompt: "What’s your latest publication?",
+    assistantReply:
+      "My most recent paper is “Choose Your Own Adventure: Non-Linear AI-Assisted Programming with EvoGraph” (arXiv, 2026), with Jinghui Cheng and Jin L.C. Guo. It introduces an IDE plugin that records branching AI-assisted coding history as a graph so that developers can compare, merge, and revisit prior states. Abstract, PDF, and DOI links are listed in publications.json.",
+  },
+  {
+    id: "show_contact",
+    label: "Show contact",
+    openFileId: "contact",
+    userPrompt: "How can I get in touch?",
+    assistantReply:
+      "You can reach me by email at vassilios.exarhakos@mail.mcgill.ca. My Google Scholar and LinkedIn profiles are also listed in contact.ts.",
+  },
 ];
 
 export const terminalBoot = [

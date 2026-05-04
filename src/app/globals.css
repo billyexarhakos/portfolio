@@ -588,6 +588,33 @@ html {
   border-color: rgba(37, 99, 235, 0.28);
 }
 
+.chatBubble.streaming::after {
+  content: "▍";
+  display: inline-block;
+  margin-left: 3px;
+  vertical-align: -0.05em;
+  color: rgba(147, 197, 253, 0.95);
+  animation: chatCaretBlink 0.85s steps(2, end) infinite;
+}
+
+@keyframes chatCaretBlink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chatBubble.streaming::after {
+    animation: none;
+  }
+}
+
 .chatPrompts {
   padding: 10px 12px;
   border-top: 1px solid rgba(148, 163, 184, 0.12);
@@ -609,6 +636,16 @@ html {
 .chip:hover {
   background: rgba(148, 163, 184, 0.08);
   color: var(--ide-text);
+}
+
+.chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.chip:disabled:hover {
+  background: rgba(2, 6, 23, 0.28);
+  color: var(--ide-muted);
 }
 
 .chatComposer {
