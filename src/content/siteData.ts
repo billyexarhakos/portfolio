@@ -12,21 +12,26 @@ export const siteTree: TreeNode[] = [
       { type: "file", id: "about", name: "about.md" },
       { type: "file", id: "research", name: "research.md" },
       { type: "file", id: "publications", name: "publications.json" },
-      {
-        type: "folder",
-        id: "projects",
-        name: "projects",
-        children: [
-          { type: "file", id: "proj-1", name: "lab-notes.ts" },
-          { type: "file", id: "proj-2", name: "systems.md" },
-        ],
-      },
       { type: "file", id: "teaching", name: "teaching.md" },
       { type: "file", id: "talks", name: "talks.md" },
       { type: "file", id: "contact", name: "contact.ts" },
     ],
   },
 ];
+
+function collectFileIdsInOrder(nodes: TreeNode[]): string[] {
+  const out: string[] = [];
+  for (const node of nodes) {
+    if (node.type === "file") out.push(node.id);
+    else out.push(...collectFileIdsInOrder(node.children));
+  }
+  return out;
+}
+
+/** File ids shown as tabs in the top bar (same order as the explorer tree). */
+export const editorTabFileIds: string[] = siteTree.flatMap((node) =>
+  node.type === "folder" ? collectFileIdsInOrder(node.children) : node.type === "file" ? [node.id] : [],
+);
 
 export const filesById: Record<string, EditorFile> = {
   about: {
@@ -97,7 +102,6 @@ export const filesById: Record<string, EditorFile> = {
     content: [
       "export const contact = {",
       '  email: "vassilios.exarhakos@mail.mcgill.ca",',
-      '  website: "https://arxiv.org/abs/2604.18883",',
       '  scholar: "https://scholar.google.com/citations?hl=en&user=nQ2kn10AAAAJ",',
       '  linkedin: "https://www.linkedin.com/in/vassilios-exarhakos-593913233/",',
       "};",
@@ -125,42 +129,6 @@ export const filesById: Record<string, EditorFile> = {
       "",
       "- Choose Your Own Adventure: Non-Linear AI-Assisted Programming with EvoGraph — paper presentation (2026)",
       "- Developer interaction with LLMs — reading group (2025)",
-    ].join("\n"),
-  },
-  "proj-1": {
-    id: "proj-1",
-    path: "projects/lab-notes.ts",
-    language: "ts",
-    content: [
-      "type Project = {",
-      "  name: string;",
-      "  oneLiner: string;",
-      "  stack: string[];",
-      "  links?: { demo?: string; code?: string; paper?: string };",
-      "};",
-      "",
-      "export const projects: Project[] = [",
-      "  {",
-      '    name: "EvoGraph",',
-      '    oneLiner: "A non-linear, graph-based interaction history for AI-assisted programming in the IDE.",',
-      '    stack: ["TypeScript", "VS Code API", "D3.js"],',
-      '    links: { paper: "https://arxiv.org/abs/2604.18883" },',
-      "  },",
-      "];",
-    ].join("\n"),
-  },
-  "proj-2": {
-    id: "proj-2",
-    path: "projects/systems.md",
-    language: "md",
-    content: [
-      "# Projects",
-      "",
-      "## EvoGraph",
-      "- What: An IDE plugin that records AI interactions and code changes as a lightweight development graph",
-      "- Why: Linear chat workflows make it hard to explore alternatives and trace branching progress",
-      "- Outcome: In a user study (n=20), participants reported lower cognitive load and better support for safe exploration and reflection",
-      "",
     ].join("\n"),
   },
 };

@@ -7,7 +7,15 @@ import { FileTree } from "@/components/FileTree";
 import { StatusBar } from "@/components/StatusBar";
 import { TabStrip } from "@/components/TabStrip";
 import { Terminal } from "@/components/Terminal";
-import { assistantMessages, assistantPrompts, defaultActiveFileId, filesById, siteTree, terminalBoot } from "@/content/siteData";
+import {
+  assistantMessages,
+  assistantPrompts,
+  defaultActiveFileId,
+  editorTabFileIds,
+  filesById,
+  siteTree,
+  terminalBoot,
+} from "@/content/siteData";
 import { useChipChatStream } from "@/hooks/useChipChatStream";
 
 function fileFor(id: string) {
@@ -25,11 +33,7 @@ export function IdeFrame() {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
-  const openTabs = useMemo(() => {
-    const pinned = ["about", "research", "publications", "contact"];
-    const uniq = new Set<string>([...pinned, activeFileId]);
-    return Array.from(uniq).slice(0, 6);
-  }, [activeFileId]);
+  const openTabs = useMemo(() => editorTabFileIds, []);
 
   const activeFile = useMemo(() => fileFor(activeFileId), [activeFileId]);
 
