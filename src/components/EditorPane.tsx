@@ -124,6 +124,15 @@ function renderPublicationJson(content: string) {
   }
 }
 
+function contactHref(value: string): string | null {
+  const v = value.trim();
+  if (!v) return null;
+  if (/^https?:\/\//i.test(v)) return v;
+  if (/^mailto:/i.test(v)) return v;
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return `mailto:${v}`;
+  return null;
+}
+
 function renderContactTs(content: string) {
   const pairs = Array.from(content.matchAll(/^\s*([a-zA-Z0-9_]+):\s*"([^"]*)"/gm)).map((m) => ({
     key: m[1],
@@ -136,12 +145,25 @@ function renderContactTs(content: string) {
     <div className="richDoc">
       <h1 className="richH1">Contact</h1>
       <div className="contactGrid">
-        {pairs.map((item) => (
-          <div key={item.key} className="contactCard">
-            <span className="contactKey">{item.key}</span>
-            <span className="contactValue">{item.value}</span>
-          </div>
-        ))}
+        {pairs.map((item) => {
+          const href = contactHref(item.value);
+          return (
+            <div key={item.key} className="contactCard">
+              <span className="contactKey">{item.key}</span>
+              {href ? (
+                <a
+                  className="contactValue contactLink"
+                  href={href}
+                  {...(href.startsWith("mailto:") ? {} : { target: "_blank", rel: "noreferrer" })}
+                >
+                  {item.value}
+                </a>
+              ) : (
+                <span className="contactValue">{item.value}</span>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

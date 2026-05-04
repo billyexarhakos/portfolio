@@ -542,6 +542,16 @@ html {
   word-break: break-all;
 }
 
+.contactLink {
+  color: var(--ide-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contactLink:hover {
+  color: rgba(191, 219, 254, 1);
+}
+
 .chatRoot {
   display: grid;
   grid-template-rows: 1fr auto auto;
