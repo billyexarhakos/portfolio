@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# IDE-style Personal Website (CS PhD)
 
-## Getting Started
+A personal website that looks like an in-IDE AI coding assistant: file explorer + editor tabs + editor surface + assistant chat + terminal + status bar.
 
-First, run the development server:
+## Develop
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Edit your content
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+All placeholder content lives in:
 
-## Learn More
+- `src/content/siteData.ts`
 
-To learn more about Next.js, take a look at the following resources:
+Replace the TODOs there (name, affiliation, research themes, publications, links, etc.).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Static export (works with GitHub Pages / Netlify / S3)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Build output is written to `out/`:
 
-## Deploy on Vercel
+```bash
+npm run build
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### GitHub Pages base path
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If your site is served from a subpath (e.g. `https://user.github.io/repo/`), set:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/repo npm run build
+```
+
+and deploy the `out/` directory.
