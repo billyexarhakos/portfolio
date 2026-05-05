@@ -72,6 +72,103 @@ function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode {
   return parts;
 }
 
+type ExperienceSection = {
+  title: string;
+  meta?: string;
+  bullets: string[];
+};
+
+/** Parse experience.md: # title, then ## blocks with optional *meta* line and - bullets. */
+function parseExperienceMarkdown(content: string): { h1: string; sections: ExperienceSection[] } | null {
+  const lines = content.split("\n");
+  let i = 0;
+  let h1 = "";
+  while (i < lines.length && !lines[i].startsWith("# ")) {
+    i++;
+  }
+  if (i >= lines.length) return null;
+  if (lines[i].startsWith("# ")) {
+    h1 = lines[i].replace(/^# /, "").trim();
+    i++;
+  }
+  const sections: ExperienceSection[] = [];
+  while (i < lines.length) {
+    const line = lines[i];
+    if (!line.startsWith("## ")) {
+      i++;
+      continue;
+    }
+    const title = line.replace(/^## /, "").trim();
+    i++;
+    const bullets: string[] = [];
+    let meta: string | undefined;
+    let metaSeen = false;
+    while (i < lines.length) {
+      const L = lines[i];
+      if (L.startsWith("## ") || L.startsWith("# ")) {
+        break;
+      }
+      const trimmed = L.trim();
+      if (!trimmed) {
+        i++;
+        continue;
+      }
+      if (L.startsWith("- ")) {
+        bullets.push(L.replace(/^- /, ""));
+        i++;
+        continue;
+      }
+      if (!metaSeen && bullets.length === 0) {
+        if (trimmed.startsWith("*") && trimmed.endsWith("*") && trimmed.length > 2) {
+          meta = trimmed.slice(1, -1).trim();
+        } else {
+          meta = trimmed;
+        }
+        metaSeen = true;
+        i++;
+        continue;
+      }
+      i++;
+    }
+    sections.push({ title, meta, bullets });
+  }
+  if (sections.length === 0) {
+    return null;
+  }
+  return { h1: h1 || "Experience", sections };
+}
+
+function renderExperienceMd(content: string) {
+  const parsed = parseExperienceMarkdown(content);
+  if (!parsed) {
+    return renderMarkdownLike(content);
+  }
+  return (
+    <div className="richDoc richDoc--experience">
+      <h1 className="richH1">{renderInlineMarkdown(parsed.h1, "exp-h1")}</h1>
+      <div className="expGrid">
+        {parsed.sections.map((sec, idx) => (
+          <article key={`${sec.title}-${idx}`} className="expCard">
+            <h2 className="expCardTitle">{renderInlineMarkdown(sec.title, `exp-ct-${idx}`)}</h2>
+            {sec.meta ? (
+              <p className="expCardMeta">{renderInlineMarkdown(sec.meta, `exp-cm-${idx}`)}</p>
+            ) : null}
+            {sec.bullets.length > 0 ? (
+              <ul className="expCardList">
+                {sec.bullets.map((b, bi) => (
+                  <li key={bi} className="expCardItem">
+                    {renderInlineMarkdown(b, `exp-li-${idx}-${bi}`)}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function renderMarkdownLike(content: string) {
   const lines = content.split("\n");
   return (
@@ -195,7 +292,7 @@ function renderContactTs(content: string) {
   if (pairs.length === 0) return null;
 
   return (
-    <div className="richDoc">
+    <div className="richDoc richDoc--contact">
       <h1 className="richH1">Contact</h1>
       <div className="contactGrid">
         {pairs.map((item) => {
@@ -227,10 +324,12 @@ export function EditorPane({ file }: { file: EditorFile }) {
   const isMarkdown = file.language === "md";
   const isPublications = file.path === "publications.json";
   const isContact = file.path === "contact.ts";
+  const isExperience = file.path === "experience.md";
 
   const richContent =
     (isPublications && renderPublicationJson(file.content)) ||
     (isContact && renderContactTs(file.content)) ||
+    (isExperience && isMarkdown && renderExperienceMd(file.content)) ||
     (isMarkdown && renderMarkdownLike(file.content));
 
   return (

@@ -71,12 +71,6 @@
   --ide-pub-link-border-hover: rgba(147, 197, 253, 0.38);
   --ide-pub-link-muted-fg: rgba(148, 163, 184, 0.7);
   --ide-pub-link-muted-bg: rgba(15, 23, 42, 0.26);
-  --ide-contact-border: rgba(147, 197, 253, 0.18);
-  --ide-contact-card-bg: rgba(2, 6, 23, 0.24);
-  --ide-contact-key: rgba(147, 197, 253, 0.82);
-  --ide-contact-value: rgba(219, 234, 254, 0.96);
-  --ide-contact-link: rgba(147, 197, 253, 0.98);
-  --ide-contact-link-hover: rgba(191, 219, 254, 1);
   --ide-chat-bubble-border: rgba(148, 163, 184, 0.16);
   --ide-chat-bubble-bg: rgba(2, 6, 23, 0.35);
   --ide-chat-bubble-text: rgba(226, 232, 240, 0.92);
@@ -173,12 +167,6 @@ html[data-theme="light"] {
   --ide-pub-link-border-hover: rgba(37, 99, 235, 0.35);
   --ide-pub-link-muted-fg: rgba(100, 116, 139, 0.75);
   --ide-pub-link-muted-bg: rgba(241, 245, 249, 0.95);
-  --ide-contact-border: rgba(37, 99, 235, 0.18);
-  --ide-contact-card-bg: rgba(255, 255, 255, 0.75);
-  --ide-contact-key: rgba(30, 64, 175, 0.82);
-  --ide-contact-value: rgba(15, 23, 42, 0.92);
-  --ide-contact-link: rgba(29, 78, 216, 0.95);
-  --ide-contact-link-hover: rgba(30, 64, 175, 1);
   --ide-chat-bubble-border: rgba(15, 23, 42, 0.1);
   --ide-chat-bubble-bg: rgba(255, 255, 255, 0.75);
   --ide-chat-bubble-text: rgba(30, 41, 59, 0.92);
@@ -729,6 +717,54 @@ html[data-theme="light"] {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.richDoc--experience .expGrid {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.expCard {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border-radius: 14px;
+  border: 1px solid var(--ide-pub-card-border);
+  background: var(--ide-pub-card-bg);
+  padding: 14px 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.expCardTitle {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ide-pub-title);
+  letter-spacing: 0.02em;
+}
+
+.expCardMeta {
+  font-size: 13px;
+  color: var(--ide-pub-muted);
+  font-style: italic;
+}
+
+.expCardList {
+  margin: 0;
+  padding: 0 0 0 1.15em;
+  display: grid;
+  gap: 8px;
+  color: var(--ide-rich-body);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.expCardItem::marker {
+  color: var(--ide-muted);
+}
+
 .pubCard {
   box-sizing: border-box;
   width: 100%;
@@ -799,41 +835,60 @@ html[data-theme="light"] {
   background: var(--ide-pub-link-muted-bg);
 }
 
-.contactGrid {
+.richDoc--contact .contactGrid {
   display: grid;
-  gap: 10px;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .contactCard {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  border-radius: 14px;
+  border: 1px solid var(--ide-pub-card-border);
+  background: var(--ide-pub-card-bg);
+  padding: 14px 16px;
   display: grid;
-  gap: 5px;
-  border-radius: 12px;
-  border: 1px solid var(--ide-contact-border);
-  background: var(--ide-contact-card-bg);
-  padding: 10px 12px;
+  gap: 10px;
 }
 
 .contactKey {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ide-contact-key);
+  color: var(--ide-pub-meta);
 }
 
 .contactValue {
   font-size: 14px;
-  color: var(--ide-contact-value);
-  word-break: break-all;
+  line-height: 1.5;
+  color: var(--ide-rich-body);
+  word-break: break-word;
 }
 
 .contactLink {
-  color: var(--ide-contact-link);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  align-self: start;
+  display: inline-flex;
+  max-width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ide-pub-link-text);
+  background: var(--ide-pub-link-bg);
+  border: 1px solid var(--ide-pub-link-border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  text-decoration: none;
+  word-break: break-word;
 }
 
 .contactLink:hover {
-  color: var(--ide-contact-link-hover);
+  color: var(--ide-pub-link-text);
+  background: var(--ide-pub-link-bg-hover);
+  border-color: var(--ide-pub-link-border-hover);
 }
 
 .chatRoot {
