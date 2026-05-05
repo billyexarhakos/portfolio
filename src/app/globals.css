@@ -410,7 +410,7 @@ html[data-theme="light"] {
 .tabStrip {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(120px, max-content);
+  grid-auto-columns: minmax(140px, max-content);
   overflow-x: auto;
   overflow-y: hidden;
   background: var(--ide-tabstrip-bg);
@@ -447,6 +447,8 @@ html[data-theme="light"] {
   border-right: 1px solid var(--ide-tab-border-right);
   cursor: pointer;
   white-space: nowrap;
+  min-width: 0;
+  max-width: 260px;
 }
 .tab:hover {
   background: var(--ide-hover-bg);
@@ -461,9 +463,13 @@ html[data-theme="light"] {
   border-radius: 999px;
   background: var(--ide-tab-accent);
   box-shadow: 0 0 0 3px var(--ide-tab-accent-ring);
+  flex-shrink: 0;
 }
 .tabLabel {
   font-size: 13px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tabFiller {
   border-left: 1px solid var(--ide-tab-filler-border);
