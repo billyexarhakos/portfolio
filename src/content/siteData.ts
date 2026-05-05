@@ -137,13 +137,13 @@ export const assistantMessages = [
   {
     role: "assistant" as const,
     content:
-      "Hi! I'm Vassilios (Billy) Exarhakos, a computer science researcher at McGill University. My work focuses on human–computer interaction for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chips below to ask about myself, my publications, or how to contact me.",
+      "Hi! I'm Vassilios (Billy) Exarhakos, a PhD Student at McGill University. My work is in human-centered AI (HCAI), with a current focus on AI for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chips below to ask about my research, publications, or contact details.",
   },
   { role: "user" as const, content: "What are you focused on in your day-to-day research?" },
   {
     role: "assistant" as const,
     content:
-      "Currently, I spend most of my time on AI-assisted programming, interaction versioning for prompts and code, and the design of tools that improve transparency and control when developers work with large language models.",
+      "I study human-centered AI broadly, especially how people can effectively collaborate with AI systems. Right now, my main application domain is supporting software development workflows for developers using AI.",
   },
 ];
 
@@ -162,7 +162,7 @@ export const assistantPrompts: AssistantPromptChip[] = [
     openFileId: "about",
     userPrompt: "What research themes are you pursuing?",
     assistantReply:
-      "My research is organized around three themes: AI-assisted programming and developer workflows with large language models; interaction versioning, or tracking and revisiting the joint evolution of prompts and code; and developer cognition, including tools that support exploration and structured reasoning.",
+      "My work sits in human-centered AI, with three recurring themes: designing human-AI collaboration workflows, improving transparency and controllability of AI behavior, and supporting reasoning through better interaction design. At the moment, I investigate these themes primarily in AI for software development, including AI-assisted programming and interaction versioning of prompts and code.",
   },
   {
     id: "show_publications",
@@ -170,7 +170,7 @@ export const assistantPrompts: AssistantPromptChip[] = [
     openFileId: "publications",
     userPrompt: "What’s your latest publication?",
     assistantReply:
-      "My most recent paper is “Choose Your Own Adventure: Non-Linear AI-Assisted Programming with EvoGraph” (arXiv, 2026), with Jinghui Cheng and Jin L.C. Guo. It introduces an IDE plugin that records branching AI-assisted coding history as a graph so that developers can compare, merge, and revisit prior states. Abstract, PDF, and DOI links are listed in publications.json.",
+      "My most recent paper is “Choose Your Own Adventure: Non-Linear AI-Assisted Programming with EvoGraph”, with Jinghui Cheng and Jin L.C. Guo. It presents an IDE plugin that captures branching human-AI coding trajectories as a graph so developers can compare, merge, and revisit prior states.",
   },
   {
     id: "show_contact",
