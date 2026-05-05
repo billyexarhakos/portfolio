@@ -49,7 +49,7 @@ export const filesById: Record<string, EditorFile> = {
       "- Versioning and provenance — tracking and revisiting the evolution of human-AI co-created artifacts",
       "",
       "## Keywords",
-      "`HCAI` `Human-AI Interaction` `Human-Centered AI` `HCI` `AI-assisted programming`",
+      "`HCAI` `Human-AI Interaction` `Human-Centered AI` `HCI` `AI-Assisted Programming`",
     ].join("\n"),
   },
   publications: {
