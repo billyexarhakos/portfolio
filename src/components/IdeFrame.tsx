@@ -80,8 +80,9 @@ export function IdeFrame() {
               </div>
             </div>
             <div className="ideTitle">
-              <span className="titleStrong">PhD Researcher</span>
-              <span className="titleFaint"> — McGill University</span>
+              <div className="ideCommandPalette" role="search" aria-label="Command palette">
+                <span className="commandPaletteText">PhD Student @ McGill University</span>
+              </div>
             </div>
             <div className="ideTopRight">
               <span className="pill">main</span>
