@@ -55,9 +55,6 @@ export function FileTree({
               <span className="treeTwisty" aria-hidden="true">
                 ▾
               </span>
-              <span className="treeIcon" aria-hidden="true">
-                🗀
-              </span>
               <span className="treeLabel">{node.name}</span>
             </div>
           );
@@ -83,9 +80,7 @@ export function FileTree({
             }}
           >
             <span className="treeIndent" style={{ width: depth * 12 }} aria-hidden="true" />
-            <span className="treeTwisty" aria-hidden="true">
-              ·
-            </span>
+            {/* No twisty for files; only an icon based on file type */}
             <span className="treeIcon" aria-hidden="true">
               ⌘
             </span>
