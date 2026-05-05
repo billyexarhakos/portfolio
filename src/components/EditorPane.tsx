@@ -129,7 +129,7 @@ function renderPublicationJson(content: string) {
     const parsed = JSON.parse(content) as { selected?: Publication[] };
     const pubs = parsed.selected ?? [];
     return (
-      <div className="richDoc">
+      <div className="richDoc richDoc--publications">
         <h1 className="richH1">Selected Publications</h1>
         {pubs.length === 0 ? (
           <p className="richP">No entries yet.</p>
