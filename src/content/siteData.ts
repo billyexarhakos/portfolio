@@ -158,7 +158,7 @@ export type AssistantPromptChip = {
 export const assistantPrompts: AssistantPromptChip[] = [
   {
     id: "show_research",
-    label: "Research",
+    label: "Ask about research",
     openFileId: "about",
     userPrompt: "What research themes are you pursuing?",
     assistantReply:
@@ -166,7 +166,7 @@ export const assistantPrompts: AssistantPromptChip[] = [
   },
   {
     id: "show_publications",
-    label: "Publications",
+    label: "Ask about publications",
     openFileId: "publications",
     userPrompt: "What’s your latest publication?",
     assistantReply:
@@ -174,7 +174,7 @@ export const assistantPrompts: AssistantPromptChip[] = [
   },
   {
     id: "show_contact",
-    label: "Contact",
+    label: "Ask about contact info",
     openFileId: "contact",
     userPrompt: "How can I get in touch?",
     assistantReply:
