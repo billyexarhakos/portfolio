@@ -40,23 +40,16 @@ export const filesById: Record<string, EditorFile> = {
     content: [
       "# Vassilios (Billy) Exarhakos",
       "",
-      "CS researcher at McGill University working on **human-AI interaction for software development**.",
-      "",
-      "## Current focus",
-      "",
-      "I design and study systems that improve how developers interact with AI coding tools, with a focus on controllability, transparency, and non-linear versioning of prompt and code trajectories.",
+      "I'm a PhD student in the Software Technology Lab at McGill University, where I am advised by Professor Jin Guo. I am a CS researcher focusing on **human-centered AI (HCAI)**. I design and study interactive systems that put human needs, values, and workflows at the center of AI. My interests include making AI more transparent, trustworthy, and supportive across a range of creative, analytical, and collaborative activities. As models become more capable, the challenge shifts from generation to interaction: helping users understand, trust, and steer AI outputs effectively.",
       "",
       "## Research themes",
-      "- AI-assisted programming — understanding and improving developer workflows with LLMs",
-      "- Interaction versioning — tracking and revisiting prompt + code evolution",
-      "- Developer cognition — designing tools that support reasoning and exploration",
+      "- Human-AI collaboration — designing AI systems that augment human reasoning, creativity, and control",
+      "- Interaction transparency — making AI systems' behavior more understandable and predictable",
+      "- Controllability — giving users meaningful ways to steer, refine, and interpret AI outputs",
+      "- Versioning and provenance — tracking and revisiting the evolution of human-AI co-created artifacts",
       "",
       "## Keywords",
-      "`LLMs` `HCI` `developer-tools` `version-control` `UX`",
-      "",
-      "## What I care about",
-      "",
-      "I care about making AI tools more transparent and controllable. As models become more capable, the challenge shifts from generation to interaction — helping users understand, trust, and steer AI outputs effectively.",
+      "`HCAI` `Human-AI Interaction` `Human-Centered AI` `HCI` `AI-assisted programming`",
     ].join("\n"),
   },
   publications: {
@@ -144,13 +137,13 @@ export const assistantMessages = [
   {
     role: "assistant" as const,
     content:
-      "Hi! I'm Vassilios (Billy) Exarhakos, a computer science researcher at McGill University. My work focuses on human–computer interaction for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chips below to ask about research, publications, or contact.",
+      "Hi! I'm Vassilios (Billy) Exarhakos, a computer science researcher at McGill University. My work focuses on human–computer interaction for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chips below to ask about myself, my publications, or how to contact me.",
   },
   { role: "user" as const, content: "What are you focused on in your day-to-day research?" },
   {
     role: "assistant" as const,
     content:
-      "I spend most of my time on AI-assisted programming, interaction versioning for prompts and code, and the design of tools that improve transparency and control when developers work with large language models. I also serve as a course assistant for COMP 303 (Software Design).",
+      "Currently, I spend most of my time on AI-assisted programming, interaction versioning for prompts and code, and the design of tools that improve transparency and control when developers work with large language models.",
   },
 ];
 
@@ -165,7 +158,7 @@ export type AssistantPromptChip = {
 export const assistantPrompts: AssistantPromptChip[] = [
   {
     id: "show_research",
-    label: "Show research",
+    label: "Research",
     openFileId: "about",
     userPrompt: "What research themes are you pursuing?",
     assistantReply:
@@ -173,7 +166,7 @@ export const assistantPrompts: AssistantPromptChip[] = [
   },
   {
     id: "show_publications",
-    label: "Show publications",
+    label: "Publications",
     openFileId: "publications",
     userPrompt: "What’s your latest publication?",
     assistantReply:
@@ -181,7 +174,7 @@ export const assistantPrompts: AssistantPromptChip[] = [
   },
   {
     id: "show_contact",
-    label: "Show contact",
+    label: "Contact",
     openFileId: "contact",
     userPrompt: "How can I get in touch?",
     assistantReply:
