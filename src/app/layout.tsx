@@ -9,9 +9,8 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PhD Researcher // IDE Assistant",
-  description:
-    "Personal website for a CS PhD researcher, styled like an in-IDE AI coding assistant.",
+  title: "Vassilios (Billy) Exarhakos",
+  description: "PhD Researcher at McGill University",
 };
 
 export default function RootLayout({
