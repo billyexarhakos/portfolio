@@ -12,7 +12,7 @@ export const siteTree: TreeNode[] = [
       { type: "file", id: "about", name: "about.md" },
       { type: "file", id: "publications", name: "publications.json" },
       { type: "file", id: "experience", name: "experience.md" },
-      { type: "file", id: "talks", name: "talks.md" },
+//      { type: "file", id: "talks", name: "talks.md" },
       { type: "file", id: "contact", name: "contact.ts" },
     ],
   },
@@ -120,17 +120,17 @@ export const filesById: Record<string, EditorFile> = {
       "- Applied GitOps principles for configuration management",
     ].join("\n"),
   },
-  talks: {
-    id: "talks",
-    path: "talks.md",
-    language: "md",
-    content: [
-      "# Talks",
-      "",
-      "- Choose Your Own Adventure: Non-Linear AI-Assisted Programming with EvoGraph — paper presentation (2026)",
-      "- Developer interaction with LLMs — reading group (2025)",
-    ].join("\n"),
-  },
+//  talks: {
+//    id: "talks",
+//    path: "talks.md",
+//    language: "md",
+//    content: [
+//      "# Talks",
+//      "",
+//      "- Choose Your Own Adventure: Non-Linear AI-Assisted Programming with EvoGraph — paper presentation (2026)",
+//      "- Developer interaction with LLMs — reading group (2025)",
+//    ].join("\n"),
+//  },
 };
 
 export const assistantMessages = [
