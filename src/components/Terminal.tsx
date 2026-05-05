@@ -63,7 +63,7 @@ export function Terminal({
         { kind: "out", text: "pages (use: open <id>):" },
         ...openablePages.map((p) => ({
           kind: "out" as const,
-          text: `  ${p.id.padEnd(14)} ${p.path}`,
+          text: `  ${p.id}`,
         })),
       ]);
       return;
