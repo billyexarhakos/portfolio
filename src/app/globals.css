@@ -631,6 +631,16 @@ html[data-theme="light"] {
   max-width: 85ch;
 }
 
+.richStrong {
+  font-weight: 600;
+  color: var(--ide-text);
+}
+
+.richEm {
+  font-style: italic;
+  color: inherit;
+}
+
 .richSpacer {
   height: 6px;
 }

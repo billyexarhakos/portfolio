@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type EditorFile = {
   id: string;
   path: string;
@@ -19,6 +21,57 @@ type Publication = {
   links?: Record<string, string>;
 };
 
+/**
+ * Inline **bold** / __bold__, *italic* / _italic_ (one line).
+ * Bold is matched first; nested markup inside bold/italic is supported.
+ */
+function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode {
+  const re =
+    /\*\*(.+?)\*\*|__(.+?)__|(?<!\*)\*(?!\*)([^*]+?)(?<!\*)\*(?!\*)|(?<!_)_(?!_)([^_]+?)(?<!_)_(?!_)/g;
+  const parts: ReactNode[] = [];
+  let last = 0;
+  let m: RegExpExecArray | null;
+  let si = 0;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) {
+      parts.push(text.slice(last, m.index));
+    }
+    const subKey = `${keyPrefix}-i${si++}`;
+    if (m[1] !== undefined) {
+      parts.push(
+        <strong key={subKey} className="richStrong">
+          {renderInlineMarkdown(m[1], subKey)}
+        </strong>,
+      );
+    } else if (m[2] !== undefined) {
+      parts.push(
+        <strong key={subKey} className="richStrong">
+          {renderInlineMarkdown(m[2], subKey)}
+        </strong>,
+      );
+    } else if (m[3] !== undefined) {
+      parts.push(
+        <em key={subKey} className="richEm">
+          {renderInlineMarkdown(m[3], subKey)}
+        </em>,
+      );
+    } else if (m[4] !== undefined) {
+      parts.push(
+        <em key={subKey} className="richEm">
+          {renderInlineMarkdown(m[4], subKey)}
+        </em>,
+      );
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) {
+    parts.push(text.slice(last));
+  }
+  if (parts.length === 0) return text;
+  if (parts.length === 1) return parts[0];
+  return parts;
+}
+
 function renderMarkdownLike(content: string) {
   const lines = content.split("\n");
   return (
@@ -27,14 +80,14 @@ function renderMarkdownLike(content: string) {
         if (line.startsWith("# ")) {
           return (
             <h1 key={idx} className="richH1">
-              {line.replace(/^# /, "")}
+              {renderInlineMarkdown(line.replace(/^# /, ""), `h1-${idx}`)}
             </h1>
           );
         }
         if (line.startsWith("## ")) {
           return (
             <h2 key={idx} className="richH2">
-              {line.replace(/^## /, "")}
+              {renderInlineMarkdown(line.replace(/^## /, ""), `h2-${idx}`)}
             </h2>
           );
         }
@@ -42,7 +95,7 @@ function renderMarkdownLike(content: string) {
           return (
             <div key={idx} className="richBullet">
               <span className="richBulletDot" aria-hidden="true" />
-              <span>{line.replace(/^- /, "")}</span>
+              <span>{renderInlineMarkdown(line.replace(/^- /, ""), `li-${idx}`)}</span>
             </div>
           );
         }
@@ -63,7 +116,7 @@ function renderMarkdownLike(content: string) {
         }
         return (
           <p key={idx} className="richP">
-            {line}
+            {renderInlineMarkdown(line, `p-${idx}`)}
           </p>
         );
       })}
