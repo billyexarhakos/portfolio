@@ -33,6 +33,12 @@ export function IdeFrame() {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      setTerminalOpen(false);
+    }
+  }, []);
+
   const openTabs = useMemo(() => editorTabFileIds, []);
 
   const openablePages = useMemo(
