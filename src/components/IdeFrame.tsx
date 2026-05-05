@@ -221,10 +221,7 @@ export function IdeFrame() {
               messages={chipChat.messages}
               isStreaming={chipChat.isStreaming}
               prompts={assistantPrompts}
-              onChipClick={(id) => {
-                chipChat.onChipClick(id);
-                setMobileAssistantOpen(false);
-              }}
+              onChipClick={chipChat.onChipClick}
             />
           </div>
         </div>
