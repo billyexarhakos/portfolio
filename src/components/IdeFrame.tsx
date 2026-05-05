@@ -50,17 +50,38 @@ export function IdeFrame() {
 
   return (
     <div className="ideRoot">
-      <div className="ideChrome" aria-label="IDE window">
+      <div className="ideChrome" aria-label="IDE">
         <div className="ideTop">
           <div className="ideTitleBar">
-            <div className="ideTraffic" aria-hidden="true">
-              <span className="dot dotRed" />
-              <span className="dot dotYellow" />
-              <span className="dot dotGreen" />
+            <div className="ideTitleBarLead">
+              <div className="ideTitleBarNav">
+                <button
+                  type="button"
+                  className="titleBarNavBtn titleBarNavBtn--files"
+                  onClick={() => {
+                    setMobileExplorerOpen(true);
+                    setMobileAssistantOpen(false);
+                  }}
+                  aria-label="Open file explorer"
+                >
+                  Files
+                </button>
+                <button
+                  type="button"
+                  className="titleBarNavBtn titleBarNavBtn--chat"
+                  onClick={() => {
+                    setMobileAssistantOpen(true);
+                    setMobileExplorerOpen(false);
+                  }}
+                  aria-label="Open assistant chat"
+                >
+                  Chat
+                </button>
+              </div>
             </div>
             <div className="ideTitle">
               <span className="titleStrong">PhD Researcher</span>
-              <span className="titleFaint"> — in-IDE assistant</span>
+              <span className="titleFaint"> — McGill University</span>
             </div>
             <div className="ideTopRight">
               <span className="pill">main</span>
@@ -100,26 +121,6 @@ export function IdeFrame() {
               <div className="ideEditorBody">
                 <div className="paneHeader">
                   <div className="editorHeaderLeft">
-                    <button
-                      className="mobileBarBtn"
-                      type="button"
-                      onClick={() => {
-                        setMobileExplorerOpen(true);
-                        setMobileAssistantOpen(false);
-                      }}
-                    >
-                      Files
-                    </button>
-                    <button
-                      className="mobileBarBtn"
-                      type="button"
-                      onClick={() => {
-                        setMobileAssistantOpen(true);
-                        setMobileExplorerOpen(false);
-                      }}
-                    >
-                      Chat
-                    </button>
                     <span className="paneTitle">{activeFile.path}</span>
                   </div>
                   <span className="paneMeta">
