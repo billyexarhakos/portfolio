@@ -1064,7 +1064,7 @@ html[data-theme="light"] {
 
 .ideTerminalHandleRow {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   flex-shrink: 0;
   padding: 2px 6px 3px;
@@ -1097,6 +1097,9 @@ html[data-theme="light"] {
   padding: 4px 8px;
   line-height: 1;
   border-radius: 6px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .ideTerminalHandleBtn:hover {
