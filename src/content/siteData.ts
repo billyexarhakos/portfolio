@@ -170,6 +170,14 @@ export const assistantPrompts: AssistantPromptChip[] = [
       "My work sits in human-centered AI, with three recurring themes: designing human-AI collaboration workflows, improving transparency and controllability of AI behavior, and supporting reasoning through better interaction design. At the moment, I investigate these themes primarily in AI for software development, including AI-assisted programming and interaction versioning of prompts and code.",
   },
   {
+    id: "show_experience",
+    label: "Ask about experience",
+    openFileId: "experience",
+    userPrompt: "What experience do you have and what have you worked on?",
+    assistantReply:
+      "I’m a graduate researcher at McGill University working on human-centered AI for software development, including AI-assisted programming workflows and interaction versioning. I also co-organize a Human-Centered AI reading group and have teaching experience as a Teaching Assistant, where I received an award for outstanding performance. Previously, I worked as a Solutions Developer Intern at Ericsson, where I built tooling and dashboards for network automation.",
+  },
+  {
     id: "show_publications",
     label: "Ask about publications",
     openFileId: "publications",
