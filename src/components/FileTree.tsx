@@ -53,7 +53,23 @@ export function FileTree({
             >
               <span className="treeIndent" style={{ width: depth * 12 }} aria-hidden="true" />
               <span className="treeTwisty" aria-hidden="true">
-                ▾
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  focusable="false"
+                  style={{ display: "block", color: "currentColor" }}
+                >
+                  <path
+                    d="M3.75 6.75C3.75 5.50736 4.75736 4.5 6 4.5H10.1716C10.6419 4.5 11.0929 4.68683 11.425 5.01893L12.1561 5.75H18C19.2426 5.75 20.25 6.75736 20.25 8V17.25C20.25 18.4926 19.2426 19.5 18 19.5H6C4.75736 19.5 3.75 18.4926 3.75 17.25V6.75Z"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </span>
               <span className="treeLabel">{node.name}</span>
             </div>
