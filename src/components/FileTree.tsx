@@ -98,7 +98,29 @@ export function FileTree({
             <span className="treeIndent" style={{ width: depth * 12 }} aria-hidden="true" />
             {/* No twisty for files; only an icon based on file type */}
             <span className="treeIcon" aria-hidden="true">
-              ⌘
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                style={{ display: "block", color: "currentColor" }}
+              >
+                <path
+                  d="M8 3.75H14.25L18.25 7.75V20.25H8C6.75736 20.25 5.75 19.2426 5.75 18V6C5.75 4.75736 6.75736 3.75 8 3.75Z"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M14.25 3.75V7.75H18.25"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </span>
             <span className="treeLabel">{node.name}</span>
           </button>
