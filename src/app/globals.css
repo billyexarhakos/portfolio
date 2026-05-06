@@ -1036,7 +1036,7 @@ html[data-theme="light"] {
   z-index: 5;
   border-radius: 14px;
   border: 1px solid var(--ide-border-strong);
-  background: var(--ide-pane);
+  background: var(--ide-bg1);
   box-shadow: var(--shadow-elev);
   overflow: hidden;
   display: grid;
