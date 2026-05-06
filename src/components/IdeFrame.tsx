@@ -167,7 +167,6 @@ export function IdeFrame() {
           <aside className="ideAssistant" aria-label="AI assistant">
             <div className="paneHeader">
               <span className="paneTitle">ASSISTANT</span>
-              <span className="paneMeta">local · themed</span>
             </div>
             <AssistantChat
               messages={chipChat.messages}
