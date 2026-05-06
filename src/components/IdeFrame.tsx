@@ -27,7 +27,10 @@ export function IdeFrame() {
   const [terminalOpen, setTerminalOpen] = useState<boolean>(true);
   const [mobileExplorerOpen, setMobileExplorerOpen] = useState<boolean>(false);
   const [mobileAssistantOpen, setMobileAssistantOpen] = useState<boolean>(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window === "undefined") return "dark";
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  });
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
