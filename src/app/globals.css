@@ -403,6 +403,12 @@ html[data-theme="light"] {
   cursor: pointer;
 }
 
+.pillBtn:hover {
+  background: var(--ide-hover-bg);
+  border-color: var(--ide-border-strong);
+  color: var(--ide-text);
+}
+
 .tabStrip {
   display: grid;
   grid-auto-flow: column;
@@ -1005,9 +1011,23 @@ html[data-theme="light"] {
   cursor: pointer;
 }
 
+.chatMenuBtn:hover {
+  background: var(--ide-hover-bg);
+  border-color: var(--ide-ui-border);
+}
+
+.chatMenuBtn:hover .chatMenuBtnText {
+  color: var(--ide-text);
+}
+
 .chatMenuBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.chatMenuBtn:disabled:hover {
+  background: var(--ide-composer-bg);
+  border-color: var(--ide-divider-strong);
 }
 
 .chatMenuBtnText {
@@ -1166,6 +1186,15 @@ html[data-theme="light"] {
   font-family: var(--font-mono);
   font-size: 13px;
   outline: none;
+}
+
+.termInput:hover {
+  border-color: var(--ide-border-strong);
+  background: var(--ide-hover-bg);
+}
+
+.termInput:focus-visible {
+  border-color: var(--ide-tab-accent);
 }
 .termInput::placeholder {
   color: var(--ide-term-placeholder);
