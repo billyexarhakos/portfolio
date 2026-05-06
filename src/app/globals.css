@@ -77,8 +77,6 @@
   --ide-chat-user-bg: rgba(37, 99, 235, 0.14);
   --ide-chat-user-border: rgba(37, 99, 235, 0.28);
   --ide-chat-caret: rgba(147, 197, 253, 0.95);
-  --ide-chip-bg: rgba(2, 6, 23, 0.28);
-  --ide-chip-disabled-hover-bg: rgba(2, 6, 23, 0.28);
   --ide-composer-bg: rgba(2, 6, 23, 0.22);
   --ide-composer-hint: rgba(148, 163, 184, 0.65);
   --ide-composer-key-fg: rgba(148, 163, 184, 0.6);
@@ -173,8 +171,6 @@ html[data-theme="light"] {
   --ide-chat-user-bg: rgba(37, 99, 235, 0.1);
   --ide-chat-user-border: rgba(37, 99, 235, 0.28);
   --ide-chat-caret: rgba(30, 64, 175, 0.85);
-  --ide-chip-bg: rgba(241, 245, 249, 0.98);
-  --ide-chip-disabled-hover-bg: rgba(241, 245, 249, 0.98);
   --ide-composer-bg: rgba(255, 255, 255, 0.8);
   --ide-composer-hint: rgba(71, 85, 105, 0.65);
   --ide-composer-key-fg: rgba(71, 85, 105, 0.55);
@@ -988,64 +984,82 @@ html[data-theme="light"] {
   }
 }
 
-.chatPrompts {
-  padding: 10px 12px;
-  border-top: 1px solid var(--ide-divider);
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.chip {
-  appearance: none;
-  border: 1px solid var(--ide-ui-border);
-  background: var(--ide-chip-bg);
-  color: var(--ide-muted);
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 13px;
-  cursor: pointer;
-}
-.chip:hover {
-  background: var(--ide-hover-bg);
-  color: var(--ide-text);
-}
-
-.chip:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
-.chip:disabled:hover {
-  background: var(--ide-chip-disabled-hover-bg);
-  color: var(--ide-muted);
-}
-
-.chatComposer {
+.chatMenu {
   padding: 10px 12px 12px 12px;
   border-top: 1px solid var(--ide-divider);
+  position: relative;
 }
 
-.composerFake {
-  border-radius: 12px;
+.chatMenuBtn {
+  width: 100%;
+  appearance: none;
   border: 1px solid var(--ide-divider-strong);
   background: var(--ide-composer-bg);
+  color: var(--ide-text);
+  border-radius: 12px;
   padding: 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  cursor: pointer;
 }
-.composerHint {
+
+.chatMenuBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chatMenuBtnText {
+  min-width: 0;
   font-size: 13px;
   color: var(--ide-composer-hint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.composerKey {
+
+.chatMenuBtnCaret {
   font-size: 12px;
   color: var(--ide-composer-key-fg);
   border: 1px solid var(--ide-ui-border);
   border-radius: 10px;
   padding: 3px 8px;
+  flex-shrink: 0;
+}
+
+.chatMenuPopover {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: calc(100% + 8px);
+  z-index: 5;
+  border-radius: 14px;
+  border: 1px solid var(--ide-border-strong);
+  background: var(--ide-pane);
+  box-shadow: var(--shadow-elev);
+  overflow: hidden;
+  display: grid;
+  max-height: min(46vh, 420px);
+}
+
+.chatMenuOption {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ide-text);
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.chatMenuOption + .chatMenuOption {
+  border-top: 1px solid var(--ide-divider);
+}
+
+.chatMenuOption:hover {
+  background: var(--ide-hover-bg);
 }
 
 .ideTerminalHandleRow {

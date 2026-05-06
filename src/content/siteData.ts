@@ -142,7 +142,7 @@ export const assistantMessages = [
   {
     role: "assistant" as const,
     content:
-      "Hi! I'm Vassilios (Billy) Exarhakos, a PhD Student at McGill University. My work is in human-centered AI (HCAI), with a current focus on AI for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chips below to ask about my research, publications, or contact details.",
+      "Hi! I'm Vassilios (Billy) Exarhakos, a PhD Student at McGill University. My work is in human-centered AI (HCAI), with a current focus on AI for software development. You can navigate this site like an IDE: use the file explorer on the left, the terminal on the bottom, or use the chat box below to ask a question.",
   },
   { role: "user" as const, content: "What are you focused on in your day-to-day research?" },
   {

@@ -2,7 +2,7 @@
 
 import type { AssistantPromptChip } from "@/content/siteData";
 import type { ChatMsg } from "@/hooks/useChipChatStream";
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 export function AssistantChat({
   messages,
@@ -16,10 +16,20 @@ export function AssistantChat({
   onChipClick: (id: string) => void;
 }) {
   const bottomRef = useRef<HTMLDivElement>(null);
+  const menuId = useId();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const selectOptions = useMemo(() => {
+    return [{ id: "", label: "Ask a question…" }, ...prompts.map((p) => ({ id: p.id, label: p.label }))];
+  }, [prompts]);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, isStreaming]);
+
+  useEffect(() => {
+    if (isStreaming) setMenuOpen(false);
+  }, [isStreaming]);
 
   return (
     <div className="chatRoot">
@@ -35,24 +45,41 @@ export function AssistantChat({
         })}
         <div ref={bottomRef} aria-hidden="true" />
       </div>
-      <div className="chatPrompts" aria-label="Suggested prompts">
-        {prompts.map((p) => (
-          <button
-            key={p.id}
-            type="button"
-            className="chip"
-            disabled={isStreaming}
-            onClick={() => onChipClick(p.id)}
-          >
-            {p.label}
-          </button>
-        ))}
-      </div>
-      <div className="chatComposer" aria-label="Chat input (visual)">
-        <div className="composerFake">
-          <span className="composerHint">Ask about papers, projects, or teaching…</span>
-          <span className="composerKey">↵</span>
-        </div>
+      <div className="chatMenu" aria-label="Quick question menu">
+        <button
+          type="button"
+          className="chatMenuBtn"
+          aria-haspopup="listbox"
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          disabled={isStreaming || prompts.length === 0}
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <span className="chatMenuBtnText">{isStreaming ? "Responding…" : "Ask a question…"}</span>
+          <span className="chatMenuBtnCaret" aria-hidden="true">
+            ▾
+          </span>
+        </button>
+
+        {menuOpen ? (
+          <div className="chatMenuPopover" role="listbox" id={menuId} aria-label="Dialogue options">
+            {selectOptions.slice(1).map((opt) => (
+              <button
+                key={opt.id}
+                type="button"
+                role="option"
+                aria-selected="false"
+                className="chatMenuOption"
+                onClick={() => {
+                  setMenuOpen(false);
+                  onChipClick(opt.id);
+                }}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   );
