@@ -94,7 +94,6 @@ export function IdeFrame() {
               </div>
             </div>
             <div className="ideTopRight">
-              <span className="pill">main</span>
               <button
                 type="button"
                 className="pill pillBtn"
