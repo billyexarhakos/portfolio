@@ -11,10 +11,10 @@ export function StatusBar() {
           main
         </span>
         <span className="statusItem">✓ lint</span>
-        <span className="statusItem">⎇ clean</span>
+        <span className="statusItem statusItemClean">⎇ clean</span>
       </div>
       <div className="statusRight">
-        <span className="statusItem">Ln 12, Col 3</span>
+        <span className="statusItem statusItemCursor">Ln 12, Col 3</span>
         <span className="statusItem">UTF-8</span>
         <span className="statusItem">{hh}:{mm}</span>
       </div>

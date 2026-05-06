@@ -1205,6 +1205,11 @@ html[data-theme="light"] {
   .ideExplorer {
     display: none;
   }
+
+  .statusItemClean,
+  .statusItemCursor {
+    display: none;
+  }
 }
 
 .mobileOverlay {
